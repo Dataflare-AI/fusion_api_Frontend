@@ -1,9 +1,9 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+import NavBarComp from '../components/NavBarComp.vue';
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <NavBarComp />
   </main>
 </template>
