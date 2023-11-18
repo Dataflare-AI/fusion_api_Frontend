@@ -1,8 +1,8 @@
 <template>
     <nav class="navbar navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/"><img src="src/assets/images/logoFusionAPI.png" width="60"
-                    height="48" class="d-inline-block align-text">
+            <a class="navbar-brand" href="/"><img src="src/assets/images/logoFusionAPI.png" width="60" height="48"
+                    class="d-inline-block align-text">
                 fusion_api</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
                 aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
@@ -18,7 +18,7 @@
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active" aria-current="page" href="/">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/about">About</a>
@@ -29,7 +29,7 @@
                                 Functions
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark">
-                                <li><a class="dropdown-item" href="#">Import</a></li>
+                                <li><a class="dropdown-item" href="/import">Import</a></li>
                                 <li><a class="dropdown-item" href="#">Export</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
@@ -46,5 +46,10 @@
 <style>
 #offcanvasDarkNavbar {
     width: 250px;
+}
+
+.navbar-container {
+    margin-bottom: 20px;
+    /* ou ajuste conforme necessário */
 }
 </style>
