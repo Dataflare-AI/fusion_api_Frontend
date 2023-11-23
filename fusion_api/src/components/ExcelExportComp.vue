@@ -8,7 +8,7 @@
                     <input class="form-control" type="file" id="formFile" @change="handleFileChange" accept=".xlsx" />
                 </label>
                 <button class="send-button" :disabled="!fileSelected" @click="sendToApi">
-                    Padronizar
+                    Exportar
                 </button>
             </div>
             <p class="error-message" v-if="fileError">Por favor, selecione um arquivo .xlsx válido.</p>
