@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import ImportView from '../views/ImportView.vue'
-import ExcelImportView from '../views/ExcelImportView.vue'
+import ExcelContentView from '../views/ExcelContentView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,7 +24,7 @@ const router = createRouter({
     {
       path: '/excel-import',
       name: 'excel-import',
-      component: ExcelImportView
+      component: ExcelContentView
     }
   ]
 })
