@@ -30,7 +30,7 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark">
                                 <li><a class="dropdown-item" href="/export">Export</a></li>
-                                <li><a class="dropdown-item" href="">View Files</a></li>
+                                <li><a class="dropdown-item" href="/viewFiles">View Files</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -43,7 +43,7 @@
         </div>
     </nav>
 </template>
-<style>
+<style scoped>
 #offcanvasDarkNavbar {
     width: 250px;
 }
