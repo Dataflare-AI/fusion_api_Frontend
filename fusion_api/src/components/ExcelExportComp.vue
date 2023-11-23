@@ -50,7 +50,7 @@ const sendToApi = async () => {
     formData.append('file', document.getElementById('formFile').files[0]);
 
     try {
-        const response = await axios.post('http://127.0.0.1:8000/api/excel-import/', formData, {
+        const response = await axios.post('http://127.0.0.1:8000/api/excel-export/', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
