@@ -7,7 +7,7 @@
                     <font-awesome-icon icon="file-import" class="fa-file-import" />
                     <input class="form-control" type="file" id="formFile" @change="handleFileChange" accept=".xlsx" />
                 </label>
-                <button class="send-button" :disabled="!fileSelected" @click="sendToUrl">
+                <button class="send-button" :disabled="!fileSelected" @click="sendToApi">
                     Padronizar
                 </button>
             </div>
@@ -19,23 +19,51 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useLoading } from 'vue-loading-overlay';
+// import { useLoading } from 'vue-loading-overlay';
+import axios from 'axios';
 
 const isLoading = ref(false);
 const fileSelected = ref(false);
 const fileError = ref(false);
 
-const importFile = async () => {
+const handleFileChange = (event) => {
+    const file = event.target.files[0];
+
+    if (file && file.name.toLowerCase().endsWith('.xlsx')) {
+        fileSelected.value = true;
+        fileError.value = false;
+    } else {
+        fileSelected.value = false;
+        fileError.value = true;
+    }
+};
+
+const sendToApi = async () => {
+    if (!fileSelected.value) {
+        fileError.value = true;
+        return;
+    }
+
     isLoading.value = true;
 
+    const formData = new FormData();
+    formData.append('file', document.getElementById('formFile').files[0]);
+
     try {
-        const response = await fetch('http://localhost:3000/import_data_to_excel/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ file: 'conteúdo do arquivo aqui' }),
+        const response = await axios.post('http://127.0.0.1:8000/api/excel-import/', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
         });
 
-        console.log('Resposta do servidor:', response);
+        // Verificar se a resposta contém a chave 'status' igual a 'success'
+        if (response.data.status === 'success') {
+            console.log('Arquivo importado com sucesso:', response.data.data);
+            // Adicione aqui qualquer lógica adicional que você deseja executar em caso de sucesso
+        } else {
+            console.error('Erro ao importar o arquivo:', response.data.error);
+            // Adicione aqui qualquer lógica adicional que você deseja executar em caso de erro
+        }
 
         setTimeout(() => {
             isLoading.value = false;
@@ -44,29 +72,6 @@ const importFile = async () => {
         console.error('Erro ao enviar o arquivo:', error);
         isLoading.value = false;
     }
-};
-
-const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    console.log('Arquivo alterado:', file);
-
-    if (file && file.name.toLowerCase().endsWith('.xlsx')) {
-        fileSelected.value = true;
-        fileError.value = false; // Limpar mensagem de erro se um arquivo válido for selecionado
-    } else {
-        fileSelected.value = false;
-        fileError.value = true; // Exibir mensagem de erro se o arquivo for inválido
-    }
-};
-
-const sendToUrl = () => {
-    console.log('Padronizado e enviado para a URL!');
-    if (!fileSelected.value) {
-        fileError.value = true; // Exibir mensagem de erro se o usuário tentar enviar sem um arquivo válido
-        return;
-    }
-
-    importFile();
 };
 </script>
 
@@ -77,9 +82,7 @@ const sendToUrl = () => {
     align-items: center;
     height: 100vh;
     background-color: #ffffff;
-    /* Cor de fundo escura */
-    color: #ffffff;
-    /* Cor do texto clara */
+    color: #000000;
 }
 
 .center-content {
@@ -88,16 +91,12 @@ const sendToUrl = () => {
 
 .form-label {
     color: #000000;
-    /* Cor do texto da label */
 }
 
 .form-control {
     background-color: #444;
-    /* Cor de fundo do input */
     color: #ffffff;
-    /* Cor do texto do input */
     border: 1px solid #777;
-    /* Cor da borda do input */
 }
 
 .file-input-container {
@@ -111,32 +110,26 @@ const sendToUrl = () => {
     align-items: center;
     padding: 10px;
     border: 2px solid #777;
-    /* Cor da borda do botão de upload */
     border-radius: 5px;
     margin-right: 10px;
 }
 
 .upload-button:hover {
     background-color: #555;
-    /* Cor de fundo ao passar o mouse sobre o botão de upload */
     color: #ffffff;
-    /* Cor do texto ao passar o mouse sobre o botão de upload */
 }
 
 .send-button {
     cursor: pointer;
     padding: 10px 20px;
     background-color: #777;
-    /* Cor de fundo do botão de envio */
     color: #ffffff;
-    /* Cor do texto do botão de envio */
     border: none;
     border-radius: 5px;
 }
 
 .send-button:hover {
     background-color: #555;
-    /* Cor de fundo ao passar o mouse sobre o botão de envio */
 }
 
 .fa-file-import {
@@ -151,7 +144,7 @@ const sendToUrl = () => {
 
 .error-message {
     color: #ff3333;
-    /* Cor vermelha para mensagens de erro */
     margin-top: 10px;
 }
 </style>
+    

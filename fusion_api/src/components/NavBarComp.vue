@@ -30,7 +30,7 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark">
                                 <li><a class="dropdown-item" href="/import">Import</a></li>
-                                <li><a class="dropdown-item" href="#">Export</a></li>
+                                <li><a class="dropdown-item" href="/excel-import">Export</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
