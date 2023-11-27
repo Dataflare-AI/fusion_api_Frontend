@@ -28,7 +28,7 @@
         </div>
 
         <div class="card">
-        <h2>Arquivos Exportados</h2>
+        <h2>Arquivos Importados</h2>
         <ul v-if="showAllFiles">
             <li v-for="fileInfo in fileList" :key="fileInfo.file">
             <a :href="fileInfo.file" :download="getFileName(fileInfo.file)">
@@ -74,7 +74,7 @@
     methods: {
         async fetchFileList() {
         try {
-            const response = await axios.get('http://127.0.0.1:8000/api/excel-export/');
+            const response = await axios.get('http://127.0.0.1:8000/api/excel-import/');
             this.fileList = response.data.map(fileInfo => ({
             file: fileInfo.file,
             fileName: fileInfo.file.split('/').pop(),
@@ -88,7 +88,7 @@
         console.log('Header Row:', this.headerRow);
 
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/excel-export', {
+            const response = await axios.post('http://127.0.0.1:8000/api/excel-import', {
             delimiter: this.delimiter,
             headerRow: this.headerRow,
             });

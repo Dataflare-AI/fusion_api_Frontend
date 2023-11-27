@@ -1,11 +1,11 @@
 <script setup>
 import NavBarComp from '../components/NavBarComp.vue';
-import ExcelExportComp from '../components/ExcelExportComp.vue';
+import ExcelImportComp from '../components/ExcelImportComp.vue';
 </script>
 
 <template>
     <main>
         <NavBarComp />
-        <ExcelExportComp />
+        <ExcelImportComp />
     </main>
 </template>

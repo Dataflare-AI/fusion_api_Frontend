@@ -8,7 +8,7 @@
                     <input class="form-control" type="file" id="formFile" @change="handleFileChange" accept=".xlsx" />
                 </label>
                 <button class="send-button" :disabled="!fileSelected" @click="sendToApi">
-                    Exportar
+                    Importar
                 </button>
             </div>
             <p class="error-message" v-if="fileError">Por favor, selecione um arquivo .xlsx válido.</p>
@@ -50,7 +50,7 @@ const sendToApi = async () => {
     formData.append('file', document.getElementById('formFile').files[0]);
 
     try {
-        const response = await axios.post('http://127.0.0.1:8000/api/excel-export/', formData, {
+        const response = await axios.post('http://127.0.0.1:8000/api/excel-import/', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },

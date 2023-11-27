@@ -29,7 +29,7 @@
                                 Functions
                             </a>
                             <ul class="dropdown-menu dropdown-menu-dark">
-                                <li><a class="dropdown-item" href="/export">Export</a></li>
+                                <li><a class="dropdown-item" href="/import">Importar</a></li>
                                 <li><a class="dropdown-item" href="/viewFiles">View Files</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
