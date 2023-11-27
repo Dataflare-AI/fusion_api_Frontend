@@ -1,8 +1,7 @@
 <template>
     <nav class="navbar navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/"><img src="src/assets/images/logoFusionAPI.png" width="60" height="48"
-                    class="d-inline-block align-text">
+            <a class="navbar-brand" href="/">
                 fusion_api</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
                 aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
