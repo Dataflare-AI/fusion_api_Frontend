@@ -5,7 +5,7 @@
                 <h2>Escolher Tabela</h2>
                 <select v-model="selectedFile" @change="loadTable">
                     <option value="">Escolha uma tabela</option>
-                    <option v-for="fileInfo in fileList" :value="fileInfo" :key="fileInfo.file">
+                    <option v-for="fileInfo in limitedFileList" :value="fileInfo" :key="fileInfo.file">
                         {{ fileInfo.fileName }}
                     </option>
                 </select>
@@ -16,13 +16,6 @@
                         <h4>Dados da Tabela</h4>
                         <pre>{{ tableData }}</pre>
                     </div>
-                    <!-- Campo para exibir as colunas da tabela -->
-                    <div v-if="tableColumns">
-                        <h4>Colunas da Tabela</h4>
-                        <ul>
-                            <li v-for="column in tableColumns" :key="column">{{ column }}</li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
@@ -32,6 +25,9 @@
 <script>
 import axios from 'axios';
 
+axios.defaults.baseURL = 'http://127.0.0.1:8000';
+axios.defaults.withCredentials = true;
+
 export default {
     data() {
         return {
@@ -40,9 +36,6 @@ export default {
             tableData: null,
             showAllFiles: false,
             filesToShowInitially: 5,
-            tableColumns: null,
-            loadingTable: false, // Adicionamos uma variável para rastrear o carregamento da tabela
-            tableError: null, // Adicionamos uma variável para armazenar mensagens de erro
         };
     },
     computed: {
@@ -51,7 +44,6 @@ export default {
         },
     },
     watch: {
-        // Atualizar dados da tabela quando a tabela selecionada mudar
         selectedFile: {
             handler() {
                 this.loadTable();
@@ -65,36 +57,26 @@ export default {
     methods: {
         async fetchFileList() {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/excel-import/');
+                const response = await axios.get('/api/excel-import/');
                 this.fileList = response.data.map((fileInfo) => ({
-                    file: fileInfo.file,
+                    file: `/media${fileInfo.file}`,  // Atualizado para incluir "/media"
                     fileName: fileInfo.file.split('/').pop(),
                 }));
             } catch (error) {
-                console.error('Erro ao buscar a lista de arquivos:', error);
+                console.error('Erro ao buscar a lista de arquivos.', error);
             }
         },
         async loadTable() {
-            if (this.selectedFile) {
-                try {
-                    // Corrigir a formatação da URL removendo o caractere ':' extra
-                    const url = this.selectedFile.file.replace(':19003', '');
-
-                    console.log('Antes da solicitação, URL da tabela selecionada:', url);
-
-                    const response = await axios.get(url);
-                    console.log('Resposta da solicitação:', response);
-
-                    this.tableData = response.data;
-                } catch (error) {
-                    console.error('Erro ao carregar dados da tabela:', error.message);
-                }
-            } else {
-                this.tableData = null;
+            try {
+                const response = await axios.get(this.selectedFile.file);
+                console.log(response.data);
+                this.tableData = response.data; // Atualize conforme necessário
+            } catch (error) {
+                console.error('Erro ao carregar dados da tabela', error);
             }
-        }
+        },
     },
-};
+    };
 </script>
 
 <style scoped>
