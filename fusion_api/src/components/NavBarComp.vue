@@ -84,7 +84,7 @@ export default {
     top: 0;
     left: 0;
     height: 100%;
-    width: 230px;
+    width: 200px;
     z-index: 1;
     padding-top: 60px;
     background-color: #212529;
@@ -118,7 +118,7 @@ export default {
     }
 
     #sidebar.active {
-        width: 230px;
+        width: 200px;
     }
 
     .navbar-toggler {
@@ -136,4 +136,13 @@ export default {
         display: none;
     }
 }
+
+.navbar-brand {
+    font-weight: bold;
+    padding: 10px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 20px;
+}
+
 </style>
